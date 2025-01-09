@@ -42,6 +42,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 app.use(express.json())
+app.get('/',(req,res)=>{res.status(200).json({"message":"Hello There"})})
 app.use('/api/books',bookrouter)
 app.use('/user',userrouter)
 

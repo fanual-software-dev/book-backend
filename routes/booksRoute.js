@@ -1,7 +1,7 @@
 
 const express = require('express')
 const Router = express.Router()
-const { GET_ALL_BOOKS, GET_SINGLE_BOOK, CREATE_A_BOOK, DELETE_A_BOOK, UPDATE_A_BOOK } = require('../controllers/booksController')
+const { GET_ALL_BOOKS, GET_SINGLE_BOOK, CREATE_A_BOOK, DELETE_A_BOOK, UPDATE_A_BOOK } = require('../api/booksController')
 
 // Get all books route
 

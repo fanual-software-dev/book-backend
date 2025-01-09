@@ -1,6 +1,6 @@
 const express= require('express')
 const router = express.Router()
-const {SIGN_UP,LOG_IN,GET_USERS,LOG_OUT,DELETE_A_USER} = require('../controllers/usersController')
+const {SIGN_UP,LOG_IN,GET_USERS,LOG_OUT,DELETE_A_USER} = require('../api/usersController')
 
 // Router to get all users
 

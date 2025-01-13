@@ -10,7 +10,7 @@ const GET_ALL_BOOKS = async(req,res)=>{
     const userid = req.session.userid
 
     if (!userid){
-        return res.status(400).json({message:"bad request"})
+        return res.status(400).json({message:"bad request. ID not found"})
     }
 
     try {

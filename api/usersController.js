@@ -1,6 +1,14 @@
 const mongoose = require('mongoose')
 const userModel = require('../models/usersModel')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+
+// function to sign
+
+const createToken = async(id)=>{
+    return jwt.sign({_id:id},process.env.SECRET,{expiresIn:'3d'})
+}
 
 // function to get all users
 
@@ -22,7 +30,6 @@ const GET_USERS = async (req,res)=>{
 const SIGN_UP = async(req,res)=>{
 
     const { firstname, lastname, email, phone, password } = req.body 
-    const session = req.session
 
     if (!firstname || !lastname || !email || !phone || !password){
         return res.status(400).json({mssg:"Please fill all the information"})
@@ -32,11 +39,12 @@ const SIGN_UP = async(req,res)=>{
 
         const hashedpassword = await bcrypt.hash(password,8)
         const user = await userModel.create({ firstname, lastname, email, phone, password:hashedpassword })
-        session.userid = user._id
-        session.firstname = user.firstname
-        session.lastname = user.lastname
+        const token = await createToken(user._id)
 
-        return res.status(200).json(user)
+        console.log(createToken(user._id))
+
+
+        return res.status(200).json({user,token})
 
     } catch (error) {
         console.log(error)
@@ -47,7 +55,6 @@ const SIGN_UP = async(req,res)=>{
 
 const LOG_IN = async(req,res)=>{
     const {email,password} = req.body
-    const session = req.session
 
     if (!email || !password){
         return res.status(400).json({message:"please fill out all information"})
@@ -66,11 +73,9 @@ const LOG_IN = async(req,res)=>{
             return res.status(404).json({message:"login failed. Check your email or password!"})
         }
 
-        session.userid = user._id
-        session.firstname = user.firstname
-        session.lastname = user.lastname
+        const token = await createToken(user._id)
 
-        return res.status(200).json(user)
+        return res.status(200).json({user,token})
 
 
     } catch (error) {
@@ -99,7 +104,7 @@ const DELETE_A_USER = async (req,res)=>{
 
 const LOG_OUT = async(req,res)=>{
 
-    req.session.destroy()
+    req.id = ""
 
     return res.status(200).json({message:"user logged out successfuly."})
 }

@@ -1,7 +1,9 @@
-
+const requireAuth = require('../middleware/requireAuth')
 const express = require('express')
 const Router = express.Router()
 const { GET_ALL_BOOKS, GET_SINGLE_BOOK, CREATE_A_BOOK, DELETE_A_BOOK, UPDATE_A_BOOK } = require('../api/booksController')
+
+Router.use(requireAuth)
 
 // Get all books route
 

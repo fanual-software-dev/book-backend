@@ -7,7 +7,7 @@ const Book = require('../models/booksModel')
 
 const GET_ALL_BOOKS = async(req,res)=>{
 
-    const userid = req.session.userid
+    const userid = req.id
 
     if (!userid){
         return res.status(400).json({message:"bad request. ID not found"})
@@ -29,7 +29,7 @@ const GET_ALL_BOOKS = async(req,res)=>{
 
 const GET_SINGLE_BOOK = async(req,res)=>{
 
-    const userid = req.session.userid
+    const userid = req.id
 
     if (!userid){
         return res.status(400).json({message:"bad request"})
@@ -58,7 +58,7 @@ const GET_SINGLE_BOOK = async(req,res)=>{
 const CREATE_A_BOOK = async(req,res)=>{
 
     const {title,author,releasedDate,image} = req.body
-    const userid = req.session.userid
+    const userid = req.id
 
     if (!userid){
         return res.status(400).json({message:"bad request"})
@@ -83,7 +83,7 @@ const CREATE_A_BOOK = async(req,res)=>{
 
 const DELETE_A_BOOK = async(req,res)=>{
 
-    const userid = req.session.userid 
+    const userid = req.id 
 
     if (!userid){
         return res.status(400).json({message:"bad request"})
@@ -111,7 +111,7 @@ const DELETE_A_BOOK = async(req,res)=>{
 
 const UPDATE_A_BOOK = async(req,res)=>{
 
-    const userid = req.session.userid
+    const userid = req.id
 
     if (!userid){
         return res.status(400).json({message:"bad request"})

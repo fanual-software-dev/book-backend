@@ -74,6 +74,7 @@ const LOG_IN = async(req,res)=>{
         }
 
         const token = await createToken(user._id)
+        
 
         return res.status(200).json({user,token})
 
